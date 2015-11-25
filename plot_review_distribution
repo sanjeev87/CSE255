@@ -1,0 +1,18 @@
+import numpy as np
+import matplotlib.pyplot as plt
+#takes in a user:business:review or business:user:review dict
+def plot(data):
+    index = 0
+    X = []
+    Y = []    
+    for userid in data:
+        index += 1
+        X.append(index)
+        Y.append(len(data[userid]))
+    Y = sorted(Y)
+    print "Average = " + str (sum(Y)/len(Y)) + " Median = " + str(Y[len(Y)/2])
+    plt.plot(X,Y)
+    plt.show()
+
+plot(b_u_reviews)
+plot(reviews)
