@@ -56,6 +56,32 @@ for b in reviews_b_u_sparse:
             reviews_b_u_sparse_train[b][u] = reviews_b_u_sparse[b][u]
             reviews_u_b_sparse_train[u][b] = reviews_u_b_sparse[u][b]
             
+#COUNT
+count = 0
+for u in reviews_u_b_sparse_test:
+    if u not in reviews_u_b_sparse_train:
+        count += 1
+print count*100.0/county(reviews_b_u_sparse_test)
+count = 0
+for b in reviews_b_u_sparse_test:
+    if b not in reviews_b_u_sparse_train:
+        
+        count += 1
+        
+print count*100.0/len(reviews_b_u_sparse_test), len(reviews_b_u_sparse_test), len(reviews_b_u_sparse_train)
+
+
+count = 0
+for b in reviews_b_u_sparse_train:
+    if b in reviews_b_u_sparse_train:
+        
+        count += 1
+        
+print count*100.0/len(reviews_b_u_sparse_val), len(reviews_b_u_sparse_val), len(reviews_b_u_sparse_train)
+
+
+
+
             
     
     
