@@ -359,6 +359,15 @@ reviews_u_b_sparse_test = pickle.load( open( "reviews_u_b_sparse_test.p", "rb" )
 reviews_u_b_sparse_train = pickle.load( open( "reviews_u_b_sparse_train.p", "rb" ) )
 reviews_u_b_sparse_val = pickle.load( open( "reviews_u_b_sparse_val.p", "rb" ) )
 
+
+reviews_b_u_medium_test = pickle.load( open( "reviews_b_u_medium_test.p", "rb" ) )
+reviews_b_u_medium_train = pickle.load( open( "reviews_b_u_medium_train.p", "rb" ) )
+reviews_b_u_medium_val = pickle.load( open( "reviews_b_u_medium_val.p", "rb" ) )
+
+reviews_u_b_medium_test = pickle.load( open( "reviews_u_b_medium_test.p", "rb" ) )
+reviews_u_b_medium_train = pickle.load( open( "reviews_u_b_medium_train.p", "rb" ) )
+reviews_u_b_medium_val = pickle.load( open( "reviews_u_b_medium_val.p", "rb" ) )
+
 # train the lda model , comment this if you have pre trained pickle
 # bussiness_to_vvector = getBusineesToVocabVector(reviews_b_u_sparse_train,vocab)
 # lda_model = trainLDA(reviews_b_u_sparse_train,vocab,50,bussiness_to_vvector)
@@ -367,31 +376,100 @@ reviews_u_b_sparse_val = pickle.load( open( "reviews_u_b_sparse_val.p", "rb" ) )
 global_avg = getGlobalAvg(reviews_u_b_subset, ratings_u_b)
 print "baseline mse:",getBaselineMSE(ratings_u_b,global_avg)
 
-print "build sparse train features"
-X_sparse_train,Y_sparse_train,mapping_sparse_train,user_to_vvector,bussiness_to_vvector = buildRegressionFeatures(lda_model,ratings_u_b,
-                            user_to_avg_rating,business_to_avg_rating,reviews_u_b_sparse_train,
-                            reviews_b_u_sparse_train,global_avg,vocab)
+#########  sparse set #############################
+# print "build sparse train features"
+# X_sparse_train,Y_sparse_train,mapping_sparse_train,user_to_vvector,bussiness_to_vvector = buildRegressionFeatures(lda_model,ratings_u_b,
+#                             user_to_avg_rating,business_to_avg_rating,reviews_u_b_sparse_train,
+#                             reviews_b_u_sparse_train,global_avg,vocab)
 
-print "build sparse val features"
+# print "build sparse val features"
+# # X_sparse_val,Y_sparse_val,mapping_sparse_val = buildRegressionFeatures(lda_model,ratings_u_b,
+# #                             user_to_avg_rating,business_to_avg_rating,reviews_u_b_sparse_val,
+# #                             reviews_b_u_sparse_val,global_avg,vocab)
+
+
+
+# X_sparse_val,Y_sparse_val,mapping_sparse_val = build_test_reg_features(lda_model,user_to_vvector,bussiness_to_vvector,
+#             reviews_u_b_sparse_val,ratings_u_b,global_avg)
+
+# print "build sparse test features"
+# # X_sparse_test,Y_sparse_test,mapping_sparse_test = buildRegressionFeatures(lda_model,ratings_u_b,
+# #                             user_to_avg_rating,business_to_avg_rating,reviews_u_b_sparse_test,
+# #                             reviews_b_u_sparse_test,global_avg,vocab)
+# X_sparse_test,Y_sparse_test,mapping_sparse_test = build_test_reg_features(lda_model,user_to_vvector,bussiness_to_vvector,
+#             reviews_u_b_sparse_test,ratings_u_b,global_avg)
+
+
+# theta,residuals,rank,s = np.linalg.lstsq(X_sparse_train, Y_sparse_train.flatten())
+# printParams(theta,residuals,rank,s)
+# print "reg sparse train mse:", residuals * 1.0 / X_sparse_train.shape[0]
+# print "reg sparse val mse:",getMSE(X_sparse_val,Y_sparse_val.flatten(),theta)
+# print "reg sparse test mse:",getMSE(X_sparse_test,Y_sparse_test.flatten(),theta)
+
+
+
+
+
+######### ########   medium set #############################
+# print "build medium train features"
+# X_medium_train,Y_medium_train,mapping_medium_train,user_to_vvector,bussiness_to_vvector = buildRegressionFeatures(lda_model,ratings_u_b,
+#                             user_to_avg_rating,business_to_avg_rating,reviews_u_b_medium_train,
+#                             reviews_b_u_medium_train,global_avg,vocab)
+
+# print "build medium val features"
+# # X_sparse_val,Y_sparse_val,mapping_sparse_val = buildRegressionFeatures(lda_model,ratings_u_b,
+# #                             user_to_avg_rating,business_to_avg_rating,reviews_u_b_sparse_val,
+# #                             reviews_b_u_sparse_val,global_avg,vocab)
+
+
+
+# X_medium_val,Y_medium_val,mapping_medium_val = build_test_reg_features(lda_model,user_to_vvector,bussiness_to_vvector,
+#             reviews_u_b_medium_val,ratings_u_b,global_avg)
+
+# print "build medium test features"
+# # X_sparse_test,Y_sparse_test,mapping_sparse_test = buildRegressionFeatures(lda_model,ratings_u_b,
+# #                             user_to_avg_rating,business_to_avg_rating,reviews_u_b_sparse_test,
+# #                             reviews_b_u_sparse_test,global_avg,vocab)
+# X_medium_test,Y_medium_test,mapping_medium_test = build_test_reg_features(lda_model,user_to_vvector,bussiness_to_vvector,
+#             reviews_u_b_medium_test,ratings_u_b,global_avg)
+
+
+# theta,residuals,rank,s = np.linalg.lstsq(X_medium_train, Y_medium_train.flatten())
+# printParams(theta,residuals,rank,s)
+# print "reg sparse train mse:", residuals * 1.0 / X_medium_train.shape[0]
+# print "reg sparse val mse:",getMSE(X_medium_val,Y_medium_val.flatten(),theta)
+# print "reg sparse test mse:",getMSE(X_medium_test,Y_medium_test.flatten(),theta
+
+
+######### ########   dense set #############################
+print "build dense train features"
+X_dense_train,Y_dense_train,mapping_dense_train,user_to_vvector,bussiness_to_vvector = buildRegressionFeatures(lda_model,ratings_u_b,
+                            user_to_avg_rating,business_to_avg_rating,reviews_u_b_dense_train,
+                            reviews_b_u_dense_train,global_avg,vocab)
+
+print "build dense val features"
 # X_sparse_val,Y_sparse_val,mapping_sparse_val = buildRegressionFeatures(lda_model,ratings_u_b,
 #                             user_to_avg_rating,business_to_avg_rating,reviews_u_b_sparse_val,
 #                             reviews_b_u_sparse_val,global_avg,vocab)
 
 
 
-X_sparse_val,Y_sparse_val,mapping_sparse_val = build_test_reg_features(lda_model,user_to_vvector,bussiness_to_vvector,
-            reviews_u_b_sparse_val,ratings_u_b,global_avg)
+X_dense_val,Y_dense_val,mapping_dense_val = build_test_reg_features(lda_model,user_to_vvector,bussiness_to_vvector,
+            reviews_u_b_dense_val,ratings_u_b,global_avg)
 
-print "build sparse test features"
+print "build dense test features"
 # X_sparse_test,Y_sparse_test,mapping_sparse_test = buildRegressionFeatures(lda_model,ratings_u_b,
 #                             user_to_avg_rating,business_to_avg_rating,reviews_u_b_sparse_test,
 #                             reviews_b_u_sparse_test,global_avg,vocab)
-X_sparse_test,Y_sparse_test,mapping_sparse_test = build_test_reg_features(lda_model,user_to_vvector,bussiness_to_vvector,
-            reviews_u_b_sparse_test,ratings_u_b,global_avg)
+X_dense_test,Y_dense_test,mapping_dense_test = build_test_reg_features(lda_model,user_to_vvector,bussiness_to_vvector,
+            reviews_u_b_dense_test,ratings_u_b,global_avg)
 
 
-theta,residuals,rank,s = np.linalg.lstsq(X_sparse_train, Y_sparse_train.flatten())
-# printParams(theta,residuals,rank,s)
-print "reg sparse train mse:", residuals * 1.0 / X_sparse_train.shape[0]
-print "reg sparse val mse:",getMSE(X_sparse_val,Y_sparse_val.flatten(),theta)
-print "reg sparse test mse:",getMSE(X_sparse_test,Y_sparse_test.flatten(),theta)
+theta,residuals,rank,s = np.linalg.lstsq(X_dense_train, Y_dense_train.flatten())
+printParams(theta,residuals,rank,s)
+print "reg sparse train mse:", residuals * 1.0 / X_dense_train.shape[0]
+print "reg sparse val mse:",getMSE(X_dense_val,Y_dense_val.flatten(),theta)
+print "reg sparse test mse:",getMSE(X_dense_test,Y_dense_test.flatten(),theta)
+
+
+
